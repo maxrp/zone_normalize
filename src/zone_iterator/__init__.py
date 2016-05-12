@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 from typing import Dict, Iterator, List, Tuple
 
 import gzip
@@ -11,7 +9,7 @@ def split_comments(line: str) -> Tuple[str, str]:
     semicolon = line.index(';')
     return (line[0:semicolon].strip(), line[semicolon:].strip())
 
-def parse_zone(zone_file: str) -> Iterator[List[str]]:
+def zone_iterator(zone_file: str) -> Iterator[List[str]]:
     default_values = {} # type: Dict[str, str]
     multiline = False
     multiline_str = ''
@@ -59,11 +57,3 @@ def parse_zone(zone_file: str) -> Iterator[List[str]]:
                 line[0] = line[0] + '.' + default_values['origin']
 
             yield line
-
-def main():
-    zone_file = sys.argv[1]
-    for line in parse_zone(zone_file):
-        print(line)
-
-if __name__ == '__main__':
-    main()
