@@ -1,16 +1,18 @@
 #!/usr/bin/python
 
+from typing import Dict, Iterator, List, Tuple
+
 import gzip
 import sys
 
 RECORDTYPES = ['a', 'aaaa', 'ns', 'rrsig', 'nsec', 'nsec3', 'nsec3param', 'dnskey']
 
-def split_comments(line):
+def split_comments(line: str) -> Tuple[str, str]:
     semicolon = line.index(';')
     return (line[0:semicolon].strip(), line[semicolon:].strip())
 
-def parse_zone(zone_file):
-    default_values = {}
+def parse_zone(zone_file: str) -> Iterator[List[str]]:
+    default_values = {} # type: Dict[str, List[str]]
     multiline = False
     multiline_str = ''
     with gzip.open(zone_file, mode='rt') as zonefh:
@@ -54,7 +56,7 @@ def parse_zone(zone_file):
                 line.insert(0, default_values['origin'])
 
             if not line[0].endswith('.'):
-                line[0] += '.' + default_values['origin']
+                line[0] = line[0] + '.' + default_values['origin']
 
             yield line
 
