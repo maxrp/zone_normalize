@@ -12,7 +12,7 @@ def split_comments(line: str) -> Tuple[str, str]:
     return (line[0:semicolon].strip(), line[semicolon:].strip())
 
 def parse_zone(zone_file: str) -> Iterator[List[str]]:
-    default_values = {} # type: Dict[str, List[str]]
+    default_values = {} # type: Dict[str, str]
     multiline = False
     multiline_str = ''
     with gzip.open(zone_file, mode='rt') as zonefh:
