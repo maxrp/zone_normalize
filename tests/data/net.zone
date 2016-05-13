@@ -1,0 +1,26 @@
+; The use of the Data contained in Verisign Inc.'s aggregated
+; .com, and .net top-level domain zone files (including the checksum
+; files) is subject to the restrictions described in the access Agreement
+; with Verisign Inc.
+
+$ORIGIN NET.
+$TTL 900
+@ IN    SOA     a.gtld-servers.net. nstld.verisign-grs.com. (
+				  1463069740 ;serial
+				  1800 ;refresh every 30 min
+				  900 ;retry every 15 min
+				  604800 ;expire after a week
+				  86400 ;minimum of a day
+				  )
+$TTL 172800
+ NS A.GTLD-SERVERS
+NS1.SAVEINCLOUD A 191.243.199.80
+NS2.SAVEINCLOUD A 191.243.199.81
+NS1.LENDBIT A 195.230.24.69
+NS2.LENDBIT A 195.230.24.69
+NS1.MAGHREBUNITED A 5.135.27.184
+NS2.MAGHREBUNITED A 5.135.27.184
+NS1.VANTAGETENNIS A 191.103.108.161
+NS2.VANTAGETENNIS A 191.103.108.161
+VRSN-END-OF-ZONE-MARKER-DUMMY-RECORD.net. TXT plenus
+;End of file

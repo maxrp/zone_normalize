@@ -1,0 +1,26 @@
+name.	86400	in	soa	an1.nstld.com. info.verisign-grs.com. 1463057999 1800 900 604800 86400
+name.	172800	in	ns	an1.nstld.com.
+name.	172800	in	ns	an2.nstld.com.
+name.	172800	in	ns	an3.nstld.com.
+name.	172800	in	ns	an4.nstld.com.
+0-0.name.	10800	in	ns	ns1cnb.domain-resolution.net.
+0-0.name.	10800	in	ns	ns3cna.domain-resolution.net.
+0-0.name.	10800	in	ns	ns2hjl.domain-resolution.net.
+0-0.name.	10800	in	ns	ns4hny.domain-resolution.net.
+0-1.name.	10800	in	ns	lee.ns.cloudflare.com.
+0-1.name.	10800	in	ns	kay.ns.cloudflare.com.
+000-canceltesten.name.	10800	in	ns	fefefe.nl.
+000-canceltesten.name.	10800	in	ns	frfrf.be.
+000-canceltesten.name.	10800	in	ns	rsbfdb.net.
+000.name.	10800	in	ns	dns21.hichina.com.
+000.name.	10800	in	ns	dns22.hichina.com.
+zzzzz.name.	10800	in	mx	10 mx03.nic.name.
+zzzzz.name.	10800	in	mx	10 mx02.nic.name.
+zzzzz.name.	10800	in	mx	10 mx01.nic.name.
+zzzzz.zzzzz.name.	10800	in	ns	ns01.yahoodomains.jp.
+zzzzz.zzzzz.name.	10800	in	ns	ns02.yahoodomains.jp.
+zzzzzz.name.	10800	in	ns	dns3.4cun.com.
+zzzzzz.name.	10800	in	ns	dns4.51dns.top.
+zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz.name.	10800	in	ns	ns3.gnr.com.
+zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz.name.	10800	in	ns	ns5.gnr.com.
+name.	86400	in	soa	an1.nstld.com. info.verisign-grs.com. 1463057999 1800 900 604800 86400
