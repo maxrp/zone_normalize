@@ -1,6 +1,5 @@
-from typing import Dict, Iterator, List, Tuple
+from typing import Dict, Iterator, List, Tuple, TextIO
 
-import gzip
 import sys
 
 RECORDTYPES = ['a', 'aaaa', 'ns', 'rrsig', 'nsec', 'nsec3', 'nsec3param', 'dnskey']
@@ -9,51 +8,50 @@ def split_comments(line: str) -> Tuple[str, str]:
     semicolon = line.index(';')
     return (line[0:semicolon].strip(), line[semicolon:].strip())
 
-def zone_iterator(zone_file: str) -> Iterator[List[str]]:
+def zone_iterator(zone_file: TextIO) -> Iterator[List[str]]:
     default_values = {} # type: Dict[str, str]
     multiline = False
     multiline_str = ''
-    with gzip.open(zone_file, mode='rt') as zonefh:
-        for line in zonefh:
-            if ';' in line:
-                line, _ = split_comments(line)
-            if '(' in line:
-                multiline = True
+    for line in zone_file:
+        if ';' in line:
+            line, _ = split_comments(line)
+        if '(' in line:
+            multiline = True
 
-            if multiline:
-                multiline_str += "{} ".format(line)
-                if ')' in multiline_str:
-                    line = multiline_str
-                    multiline = False
-                    multiline_str = ''
-                else:
-                    continue
-
-            line = line.strip().split()
-            line_len = len(line)
-
-            # midpoint filtering
-            if line_len < 2:
+        if multiline:
+            multiline_str += "{} ".format(line)
+            if ')' in multiline_str:
+                line = multiline_str
+                multiline = False
+                multiline_str = ''
+            else:
                 continue
 
-            # set a new default value
-            if line_len == 2 and line[0].startswith('$'):
-                default_values[line[0][1:].lower()] = line[1]
-                continue
+        line_chunks = line.strip().split()
+        line_len = len(line_chunks)
 
-            # replace @ with origin
-            if line[0] == '@':
-                line[0] = default_values['origin']
+        # midpoint filtering
+        if line_len < 2:
+            continue
 
-            # Fixing phase
-            if line[1].lower() in RECORDTYPES:
-                # is the second field a known record type? then inject a TTL
-                line.insert(1, default_values['ttl'])
-            elif line[0].lower() in RECORDTYPES:
-                line.insert(0, default_values['ttl'])
-                line.insert(0, default_values['origin'])
+        # set a new default value
+        if line_len == 2 and line_chunks[0].startswith('$'):
+            default_values[line_chunks[0][1:].lower()] = line_chunks[1]
+            continue
 
-            if not line[0].endswith('.'):
-                line[0] = line[0] + '.' + default_values['origin']
+        # replace @ with origin
+        if line_chunks[0] == '@':
+            line_chunks[0] = default_values['origin']
 
-            yield line
+        # Fixing phase
+        if line_chunks[1].lower() in RECORDTYPES:
+            # is the second field a known record type? then inject a TTL
+            line_chunks.insert(1, default_values['ttl'])
+        elif line_chunks[0].lower() in RECORDTYPES:
+            line_chunks.insert(0, default_values['ttl'])
+            line_chunks.insert(0, default_values['origin'])
+
+        if not line_chunks[0].endswith('.'):
+            line_chunks[0] += '.' + default_values['origin']
+
+        yield line_chunks
