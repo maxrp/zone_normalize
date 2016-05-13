@@ -27,6 +27,7 @@ setup(name='zone_iterator',
     package_dir = {'': 'src'},include_package_data=True,
     zip_safe=True,
     install_requires=install_requires,
+    setup_requires=['pytest-runner'],
     entry_points={
         'console_scripts':
             ['zone_normalize=zone_iterator.__main__:main']
