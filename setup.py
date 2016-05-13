@@ -25,7 +25,6 @@ setup(name='zone_iterator',
     license='AGPLv3',
     packages=find_packages('src'),
     package_dir = {'': 'src'},include_package_data=True,
-    zip_safe=True,
     install_requires=install_requires,
     setup_requires=['pytest-runner'],
     entry_points={
