@@ -6,7 +6,7 @@ RECORDTYPES = ['a', 'aaaa', 'ns', 'rrsig', 'nsec', 'nsec3', 'nsec3param', 'dnske
 
 def split_comments(line: str) -> Tuple[str, str]:
     semicolon = line.index(';')
-    return (line[0:semicolon].strip(), line[semicolon:].strip())
+    return (line[0:semicolon].strip(), line[semicolon+1:].strip())
 
 def zone_iterator(zone_file: TextIO) -> Iterator[List[str]]:
     default_values = {} # type: Dict[str, str]
