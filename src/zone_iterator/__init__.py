@@ -1,4 +1,4 @@
-from typing import Dict, Iterator, List, Tuple, TextIO
+from typing import Dict, Iterator, Iterable, List, Tuple
 
 import sys
 
@@ -8,7 +8,7 @@ def split_comments(line: str) -> Tuple[str, str]:
     semicolon = line.index(';')
     return (line[0:semicolon].strip(), line[semicolon+1:].strip())
 
-def zone_iterator(zone_file: TextIO) -> Iterator[List[str]]:
+def zone_iterator(zone_file: Iterable) -> Iterator[List[str]]:
     default_values = {} # type: Dict[str, str]
     multiline = False
     multiline_str = ''
