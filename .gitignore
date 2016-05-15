@@ -12,3 +12,6 @@ dist
 
 .cache
 .eggs
+
+.coverage
+.tox
