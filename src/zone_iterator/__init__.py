@@ -32,7 +32,7 @@ def set_flags(line: str, multiline: bool) -> Tuple[bool, bool]:
 
 def zone_iterator(zone_file: Iterable,
                   default_class="in",
-                  default_ttl="900") -> Iterator[List[str]]:
+                  default_ttl="900") -> Iterator[List[str]]:          # pylint: disable=invalid-sequence-index
     default_values = {'class': default_class,
                       'ttl': default_ttl}
     multiline = False
