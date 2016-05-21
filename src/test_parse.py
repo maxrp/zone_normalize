@@ -15,16 +15,16 @@ REFERENCE_COM_ZONE = [['COM.',
                        '604800',
                        '86400',
                        ')'],
-                      ['COM.', '172800', 'NS', 'A.GTLD-SERVERS.NET.'],
-                      ['NS2.MUSCLEEXTREMEXXL.COM.', '172800', 'A', '149.255.57.124'],
-                      ['NS3.MUSCLEEXTREMEXXL.COM.', '172800', 'A', '193.105.134.6'],
-                      ['NS1.MUSCLEEXTREMEXXL.COM.', '172800', 'A', '31.220.42.157'],
-                      ['NS1.NEWPOINTNET.COM.', '172800', 'A', '208.67.44.155'],
-                      ['NS2.NEWPOINTNET.COM.', '172800', 'A', '198.175.28.6'],
-                      ['NS0.WORLD-OF-DIGITAL.COM.', '172800', 'A', '212.227.82.151'],
-                      ['NS.HEMENDEMO.COM.', '172800', 'A', '185.87.121.219'],
-                      ['WWW.POLDEGA.COM.', '172800', 'A', '89.16.164.137'],
-                      ['VRSN-END-OF-ZONE-MARKER-DUMMY-RECORD.com.', 'TXT', 'plenus']]
+                      ['COM.', '172800', 'in', 'NS', 'A.GTLD-SERVERS.NET.'],
+                      ['NS2.MUSCLEEXTREMEXXL.COM.', '172800', 'in', 'A', '149.255.57.124'],
+                      ['NS3.MUSCLEEXTREMEXXL.COM.', '172800', 'in', 'A', '193.105.134.6'],
+                      ['NS1.MUSCLEEXTREMEXXL.COM.', '172800', 'in', 'A', '31.220.42.157'],
+                      ['NS1.NEWPOINTNET.COM.', '172800', 'in', 'A', '208.67.44.155'],
+                      ['NS2.NEWPOINTNET.COM.', '172800', 'in', 'A', '198.175.28.6'],
+                      ['NS0.WORLD-OF-DIGITAL.COM.', '172800', 'in', 'A', '212.227.82.151'],
+                      ['NS.HEMENDEMO.COM.', '172800', 'in', 'A', '185.87.121.219'],
+                      ['WWW.POLDEGA.COM.', '172800', 'in', 'A', '89.16.164.137'],
+                      ['VRSN-END-OF-ZONE-MARKER-DUMMY-RECORD.com.', '172800', 'in', 'TXT', 'plenus']]
 
 @pytest.fixture()
 def sample_com_tld():
