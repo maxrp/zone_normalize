@@ -2,7 +2,10 @@ from typing import Dict, Iterator, Iterable, List, Tuple
 
 import sys
 
-RECORDTYPES = ['a', 'aaaa', 'ns', 'rrsig', 'nsec', 'nsec3', 'nsec3param', 'dnskey']
+# should be exhaustive
+RECORDCLASSES = ['ch', 'in', 'hs', 'cs']
+# non-exhaustive
+RECORDTYPES = ['a', 'aaaa', 'ns', 'rrsig', 'nsec', 'nsec3', 'nsec3param', 'dnskey', 'txt']
 
 def split_comments(line: str) -> Tuple[str, str]:
     semicolon = line.index(';')
@@ -61,10 +64,14 @@ def zone_iterator(zone_file: Iterable) -> Iterator[List[str]]:
             line_chunks[0] = default_values['origin']
 
         # Fixing phase
-        if line_chunks[1].lower() in RECORDTYPES:
+        if line_chunks[1].lower() in RECORDCLASSES:
+            line_chunks.insert(1, default_values['ttl'])
+        elif line_chunks[1].lower() in RECORDTYPES:
             # is the second field a known record type? then inject a TTL
+            line_chunks.insert(1, default_values['class'])
             line_chunks.insert(1, default_values['ttl'])
         elif line_chunks[0].lower() in RECORDTYPES:
+            line_chunks.insert(0, default_values['class'])
             line_chunks.insert(0, default_values['ttl'])
             line_chunks.insert(0, default_values['origin'])
 
