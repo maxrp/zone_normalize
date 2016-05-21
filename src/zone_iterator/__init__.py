@@ -8,15 +8,37 @@ def split_comments(line: str) -> Tuple[str, str]:
     semicolon = line.index(';')
     return (line[0:semicolon].strip(), line[semicolon+1:].strip())
 
+
+def set_defaults(line: str, default_values: Dict[str, str]) -> Dict[str, str]:
+    var_name, var_value = tuple(line[1:].split())
+    var_name = var_name.lower()
+    default_values[var_name] = var_value
+    return default_values
+
+
+def set_flags(line: str, multiline: bool) -> Tuple[bool, bool]:
+    comments = False
+
+    for token in line:
+        if not multiline and token == '(':
+            multiline = True
+        if token == ';':
+            comments = True
+    return (comments, multiline)
+
+
 def zone_iterator(zone_file: Iterable) -> Iterator[List[str]]:
     default_values = {} # type: Dict[str, str]
     multiline = False
     multiline_str = ''
     for line in zone_file:
-        if ';' in line:
+        if line.startswith('$'):
+            default_values = set_defaults(line, default_values)
+            continue
+
+        comments, multiline = set_flags(line, multiline)
+        if comments:
             line, _ = split_comments(line)
-        if '(' in line:
-            multiline = True
 
         if multiline:
             multiline_str += "{} ".format(line)
@@ -32,11 +54,6 @@ def zone_iterator(zone_file: Iterable) -> Iterator[List[str]]:
 
         # midpoint filtering
         if line_len < 2:
-            continue
-
-        # set a new default value
-        if line_len == 2 and line_chunks[0].startswith('$'):
-            default_values[line_chunks[0][1:].lower()] = line_chunks[1]
             continue
 
         # replace @ with origin
