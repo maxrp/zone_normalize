@@ -19,15 +19,18 @@ def set_defaults(line: str, default_values: Dict[str, str]) -> Dict[str, str]:
     return default_values
 
 
-def set_flags(line: str, multiline: bool) -> Tuple[bool, bool]:
+def set_flags(line: str, multiline: bool) -> Tuple[bool, bool, bool]:
     comments = False
+    end_of_multiline = False
 
     for token in line:
         if not multiline and token == '(':
             multiline = True
+        if multiline and token == ')':
+            end_of_multiline = True
         if token == ';':
             comments = True
-    return (comments, multiline)
+    return (comments, multiline, end_of_multiline)
 
 
 def zone_iterator(zone_file: Iterable,
@@ -42,18 +45,18 @@ def zone_iterator(zone_file: Iterable,
             default_values = set_defaults(line, default_values)
             continue
 
-        comments, multiline = set_flags(line, multiline)
+        comments, multiline, end_of_multiline = set_flags(line, multiline)
         if comments:
             line, _ = split_comments(line)
 
         if multiline:
             multiline_str += "{} ".format(line)
-            if ')' in multiline_str:
-                line = multiline_str
-                multiline = False
-                multiline_str = ''
-            else:
+            if not end_of_multiline:
                 continue
+            else:
+                line = multiline_str
+                multiline_str = ''
+                multiline = False
 
         line_chunks = line.strip().split()
         line_len = len(line_chunks)
