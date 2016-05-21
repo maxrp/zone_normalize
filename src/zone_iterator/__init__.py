@@ -30,8 +30,11 @@ def set_flags(line: str, multiline: bool) -> Tuple[bool, bool]:
     return (comments, multiline)
 
 
-def zone_iterator(zone_file: Iterable) -> Iterator[List[str]]:
-    default_values = {} # type: Dict[str, str]
+def zone_iterator(zone_file: Iterable,
+                  default_class="in",
+                  default_ttl="900") -> Iterator[List[str]]:
+    default_values = {'class': default_class,
+                      'ttl': default_ttl}
     multiline = False
     multiline_str = ''
     for line in zone_file:
