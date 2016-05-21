@@ -3,6 +3,7 @@ import pytest
 from zone_iterator import *
 
 REFERENCE_COM_ZONE = [['COM.',
+                       '900',
                        'IN',
                        'SOA',
                        'a.gtld-servers.net.',
