@@ -33,7 +33,6 @@ def sample_com_tld():
         com_zone.close()
     return com_zone
 
-@pytest.mark.usefixtures("sample_com_tld")
 class TestParse:
     def test_comment_split(self):
         simple_test_comment = "; foobar"
@@ -45,6 +44,7 @@ class TestParse:
         rdata, _ = split_comments(test_comment)
         assert "example.com. NS ns1.example.com" == rdata
 
+    @pytest.mark.usefixtures("sample_com_tld")
     def test_com_tld_parse(self, sample_com_tld):
         zone = [l for l in zone_iterator(sample_com_tld)]
         assert REFERENCE_COM_ZONE == zone
