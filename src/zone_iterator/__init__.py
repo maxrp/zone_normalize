@@ -77,8 +77,14 @@ def zone_iterator(zone_file: Iterable,
             line_chunks[0] = default_values['origin']
 
         # Fixing phase
-        if line_chunks[1].lower() in RECORDCLASSES:
-            line_chunks.insert(1, default_values['ttl'])
+        if line_chunks[1].lower() in RECORDCLASSES and \
+                line_chunks[2].lower() in RECORDTYPES:
+                    # then the first field is the ttl
+                    line_chunks.insert(0, default_values['origin'])
+
+        if line_chunks[1].lower() in RECORDCLASSES and \
+                not line_chunks[0].isnumeric():
+                line_chunks.insert(1, default_values['ttl'])
         elif line_chunks[1].lower() in RECORDTYPES:
             # is the second field a known record type? then inject a TTL
             line_chunks.insert(1, default_values['class'])
@@ -90,5 +96,8 @@ def zone_iterator(zone_file: Iterable,
 
         if not line_chunks[0].endswith('.'):
             line_chunks[0] += '.' + default_values['origin']
+
+        if 'origin' not in default_values:
+            default_values['origin'] = line_chunks[0]
 
         yield line_chunks
