@@ -1,11 +1,18 @@
 from typing import Dict, Iterator, Iterable, List, Tuple
 
-import sys
-
 # should be exhaustive
 RECORDCLASSES = ['ch', 'in', 'hs', 'cs']
 # non-exhaustive
-RECORDTYPES = ['a', 'aaaa', 'ns', 'rrsig', 'nsec', 'nsec3', 'nsec3param', 'dnskey', 'txt']
+RECORDTYPES = ['a',
+               'aaaa',
+               'dnskey',
+               'rrsig',
+               'ns',
+               'nsec',
+               'nsec3',
+               'nsec3param',
+               'txt']
+
 
 def split_comments(line: str) -> Tuple[str, str]:
     semicolon = line.index(';')

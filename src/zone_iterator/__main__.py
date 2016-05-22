@@ -3,6 +3,7 @@ import sys
 
 from . import zone_iterator
 
+
 def main():
     zone_file = sys.argv[1]
     if zone_file[-2:] == 'gz':
