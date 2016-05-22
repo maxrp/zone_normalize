@@ -38,13 +38,13 @@ class TestParse:
     def test_comment_split(self):
         simple_test_comment = "; foobar"
         _, comment = split_comments(simple_test_comment)
-        assert comment == "foobar"
+        assert "foobar" == comment
 
     def test_rdata_split(self):
         test_comment = "example.com. NS ns1.example.com ; an example NS record"
         rdata, _ = split_comments(test_comment)
-        assert rdata == "example.com. NS ns1.example.com"
+        assert "example.com. NS ns1.example.com" == rdata
 
     def test_com_tld_parse(self, sample_com_tld):
         zone = [l for l in zone_iterator(sample_com_tld)]
-        assert zone == REFERENCE_COM_ZONE
+        assert REFERENCE_COM_ZONE == zone
