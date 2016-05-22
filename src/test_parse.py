@@ -51,3 +51,9 @@ class TestParse:
     def test_com_tld_parse(self, sample_com_tld):
         zone = [l for l in zone_iterator(sample_com_tld)]
         assert REFERENCE_COM_ZONE == zone
+
+    def test_implicit_origin(self):
+        implicit_origin_zone = [" ".join(REFERENCE_COM_ZONE[0]),
+                                " ".join(REFERENCE_COM_ZONE[1][1:])]
+        zone = [l for l in zone_iterator(implicit_origin_zone)]
+        assert REFERENCE_COM_ZONE[0:2] == zone
