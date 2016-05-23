@@ -1,4 +1,5 @@
-from typing import Dict, Iterator, Iterable, List, Tuple
+from collections import OrderedDict
+from typing import Any, Dict, Iterator, Iterable, List, Tuple
 
 # should be exhaustive
 RECORDCLASSES = ['ch', 'in', 'hs', 'cs']
@@ -40,11 +41,14 @@ def set_flags(line: str, multiline: bool) -> Tuple[bool, bool, bool]:
     return (comments, multiline, end_of_multiline)
 
 
-def zone_iterator(zone_file: Iterable,
-                  default_class="in",
-                  default_ttl="900") -> Iterator[List[str]]:          # pylint: disable=invalid-sequence-index
-    default_values = {'class': default_class,
-                      'ttl': default_ttl}
+def zone_dict_to_str(record):
+    fmt = "{0[origin]} {0[ttl]} {0[class]} {0[type]} {1}"
+    return fmt.format(record, " ".join(record['data']))
+
+
+def zone_iterator(zone_file: Iterable, def_class="in", ttl="900") -> Iterator:
+    default_values = {'class': def_class,
+                      'ttl': ttl}
     multiline = False
     multiline_str = ''
     for line in zone_file:
@@ -106,7 +110,15 @@ def zone_iterator(zone_file: Iterable,
         if not line_chunks[0].endswith('.'):
             line_chunks[0] += '.' + default_values['origin']
 
-        if 'origin' not in default_values:
-            default_values['origin'] = line_chunks[0]
+        # try to name the fields
+        record = OrderedDict()  # type: OrderedDict[str, str]
+        record['origin'], record['ttl'], record['class'], record['type'] = \
+            tuple(line_chunks[:4])
 
-        yield line_chunks
+        # the rest of the data goes here and needs a type specific parser
+        record['data'] = line_chunks[4:]
+
+        if 'origin' not in default_values:
+            default_values['origin'] = record['origin']
+
+        yield record

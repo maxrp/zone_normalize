@@ -1,7 +1,7 @@
 import gzip
 import sys
 
-from . import zone_iterator
+from . import zone_iterator, zone_dict_to_str
 
 
 def main():
@@ -12,8 +12,8 @@ def main():
         our_open = open
 
     with our_open(zone_file, mode='rt') as zonefh:
-        for line in zone_iterator(zonefh):
-            print(' '.join(line))
+        for record in zone_iterator(zonefh):
+            print(zone_dict_to_str(record))
 
 if __name__ == "__main__":
     main()
