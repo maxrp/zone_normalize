@@ -2,28 +2,28 @@ import pytest
 
 from zone_iterator import split_comments, zone_iterator
 
-REFERENCE_COM_ZONE = [['COM.', '900', 'IN', 'SOA', 'a.gtld-servers.net.',
+REFERENCE_COM_ZONE = [['com.', '900', 'in', 'soa', 'a.gtld-servers.net.',
                        'nstld.verisign-grs.com.', '(',
                        '1463069743', '1800', '900', '604800', '86400', ')'],
-                      ['COM.', '172800', 'in', 'NS', 'A.GTLD-SERVERS.NET.'],
-                      ['NS2.MUSCLEEXTREMEXXL.COM.', '172800', 'in', 'A',
+                      ['com.', '172800', 'in', 'ns', 'A.GTLD-SERVERS.NET.'],
+                      ['ns2.muscleextremexxl.com.', '172800', 'in', 'a',
                           '149.255.57.124'],
-                      ['NS3.MUSCLEEXTREMEXXL.COM.', '172800', 'in', 'A',
+                      ['ns3.muscleextremexxl.com.', '172800', 'in', 'a',
                           '193.105.134.6'],
-                      ['NS1.MUSCLEEXTREMEXXL.COM.', '172800', 'in', 'A',
+                      ['ns1.muscleextremexxl.com.', '172800', 'in', 'a',
                           '31.220.42.157'],
-                      ['NS1.NEWPOINTNET.COM.', '172800', 'in', 'A',
+                      ['ns1.newpointnet.com.', '172800', 'in', 'a',
                           '208.67.44.155'],
-                      ['NS2.NEWPOINTNET.COM.', '172800', 'in', 'A',
+                      ['ns2.newpointnet.com.', '172800', 'in', 'a',
                           '198.175.28.6'],
-                      ['NS0.WORLD-OF-DIGITAL.COM.', '172800', 'in', 'A',
+                      ['ns0.world-of-digital.com.', '172800', 'in', 'a',
                           '212.227.82.151'],
-                      ['NS.HEMENDEMO.COM.', '172800', 'in', 'A',
+                      ['ns.hemendemo.com.', '172800', 'in', 'a',
                           '185.87.121.219'],
-                      ['WWW.POLDEGA.COM.', '172800', 'in', 'A',
+                      ['www.poldega.com.', '172800', 'in', 'a',
                           '89.16.164.137'],
-                      ['VRSN-END-OF-ZONE-MARKER-DUMMY-RECORD.com.', '172800',
-                          'in', 'TXT', 'plenus']]
+                      ['vrsn-end-of-zone-marker-dummy-record.com.', '172800',
+                          'in', 'txt', 'plenus']]
 
 
 @pytest.fixture()
