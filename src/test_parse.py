@@ -76,6 +76,16 @@ def sample_com_tld():
     return com_zone
 
 
+@pytest.fixture()
+def rfc1035_example():
+    zone = open('tests/data/rfc1035.zone', mode='rt')
+
+    def fin():
+        zone.close()
+
+    return zone
+
+
 class TestParse:
     def test_comment_split(self):
         simple_test_comment = "; foobar"
@@ -97,3 +107,8 @@ class TestParse:
                                 zone_dict_to_str(REFERENCE_COM_ZONE[1])]
         zone = [l for l in zone_iterator(implicit_origin_zone)]
         assert REFERENCE_COM_ZONE[0:2] == zone
+
+    @pytest.mark.usefixtures("rfc1035_example")
+    def test_rfc1035_example(self, rfc1035_example):
+        zone = [l for l in zone_iterator(rfc1035_example)]
+        assert RFC1035_EXAMPLE == zone
