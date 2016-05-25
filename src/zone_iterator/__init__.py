@@ -1,5 +1,5 @@
 from collections import OrderedDict
-from typing import Any, Dict, Iterator, Iterable, List, Tuple
+from typing import Dict, Iterator, Iterable, Tuple
 
 # should be exhaustive
 RECORDCLASSES = ['ch', 'in', 'hs', 'cs']
