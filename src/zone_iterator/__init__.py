@@ -13,6 +13,8 @@ RECORDTYPES = ['a',
                'nsec3',
                'nsec3param',
                'txt']
+# Basic format for a zone and data
+ZONE_FMT_STR = "{0[origin]} {0[ttl]} {0[class]} {0[type]} {1}"
 
 
 def split_comments(line: str) -> Tuple[str, str]:
@@ -41,9 +43,8 @@ def set_flags(line: str, multiline: bool) -> Tuple[bool, bool, bool]:
     return (comments, multiline, end_of_multiline)
 
 
-def zone_dict_to_str(record):
-    fmt = "{0[origin]} {0[ttl]} {0[class]} {0[type]} {1}"
-    return fmt.format(record, " ".join(record['data']))
+def zone_dict_to_str(record: OrderedDict, fmt_str: str=ZONE_FMT_STR) -> str:
+    return fmt_str.format(record, " ".join(record['data']))
 
 
 def zone_iterator(zone_file: Iterable, def_class="in", ttl="900") -> Iterator:

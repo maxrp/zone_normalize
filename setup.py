@@ -29,8 +29,9 @@ setup(name='zone_iterator',
       package_dir={'': 'src'}, include_package_data=True,
       install_requires=install_requires,
       setup_requires=['pytest-runner'],
+      extras_require={'colors': 'colorama'},
       entry_points={
         'console_scripts':  [
-            'zone_normalize=zone_iterator.__main__:main'
+            'zone_normalize=zone_iterator.__main__:main [colors]'
         ]
       })
