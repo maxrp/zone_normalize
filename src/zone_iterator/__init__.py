@@ -8,6 +8,7 @@ RECORDTYPES = ['a',
                'aaaa',
                'dnskey',
                'rrsig',
+               'mx',
                'ns',
                'nsec',
                'nsec3',
@@ -85,7 +86,7 @@ def zone_iterator(zone_file: Iterable, def_class="in", ttl="900") -> Iterator:
         line_chunks[0] = line_chunks[0].lower()
 
         # A two field [type, data] entry, needs three fields added
-        if line_chunks[0] in RECORDTYPES and line_len == 2:
+        if line_chunks[0] in RECORDTYPES:
             line_chunks.insert(0, default_values['class'])
             line_chunks.insert(0, default_values['ttl'])
             line_chunks.insert(0, default_values['origin'])
