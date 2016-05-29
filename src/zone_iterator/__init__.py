@@ -95,10 +95,6 @@ def zone_iterator(zone_file: Iterable, def_class="in", ttl="900") -> Iterator:
         for i in range(1, 3):
             line_chunks[i] = line_chunks[i].lower()
 
-        if line_chunks[1] in RECORDCLASSES and line_chunks[2] in RECORDTYPES:
-            # then the first field is the ttl
-            line_chunks.insert(0, default_values['origin'])
-
         # if the first char of the first field isn't numeric and the second is
         # a class, inject a ttl field
         if line_chunks[1] in RECORDCLASSES \
