@@ -126,6 +126,172 @@ RFC1035_EXAMPLE = [OrderedDict([('origin', 'isi.edu.'),
                                 ('type', 'a'),
                                 ('data', ['128.9.0.33'])])]
 
+# The first 9 lines expected from parsing rfc4035.zone
+RFC4035_EXAMPLE = [OrderedDict([('origin', 'example.'),
+                                ('ttl', '3600'),
+                                ('class', 'in'),
+                                ('type', 'SOA'),
+                                ('data',
+                                    ['ns1.example.',
+                                     'bugs.x.w.example.', '(',
+                                     '1081539377', '3600', '300', '3600000',
+                                     '3600', ')'])]),
+                   OrderedDict([('origin', 'example.'),
+                                ('ttl', '3600'),
+                                ('class', 'in'),
+                                ('type', 'rrsig'),
+                                ('data',
+                                ['SOA', '5', '1', '3600',
+                                 '20040509183619',
+                                 '(', '20040409183619',
+                                 '38519', 'example.',
+                                 'ONx0k36rcjaxYtcNgq6iQnpNV5+drqYAsC9h',
+                                 '7TSJaHCqbhE67Sr6aH2xDUGcqQWu/n0UVzrF',
+                                 'vkgO9ebarZ0GWDKcuwlM6eNB5SiX2K74l5LW',
+                                 'DA7S/Un/IbtDq4Ay8NMNLQI7Dw7n4p8/rjkB',
+                                 'jV7j86HyQgM5e7+miRAz8V01b0I=',
+                                 ')'])]),
+                   OrderedDict([('origin', 'example.'),
+                                ('ttl', '3600'),
+                                ('class', 'in'),
+                                ('type', 'ns'),
+                                ('data', ['ns1.example.'])]),
+                   OrderedDict([('origin', 'example.'),
+                                ('ttl', '3600'),
+                                ('class', 'in'),
+                                ('type', 'ns'),
+                                ('data', ['ns2.example.'])]),
+                   OrderedDict([('origin', 'example.'),
+                                ('ttl', '3600'),
+                                ('class', 'in'),
+                                ('type', 'rrsig'),
+                                ('data',
+                                ['NS', '5', '1', '3600',
+                                 '20040509183619',
+                                 '(', '20040409183619',
+                                 '38519',
+                                 'example.',
+                                 'gl13F00f2U0R+SWiXXLHwsMY+qStYy5k6zfd',
+                                 'EuivWc+wd1fmbNCyql0Tk7lHTX6UOxc8AgNf',
+                                 '4ISFve8XqF4q+o9qlnqIzmppU3LiNeKT4FZ8',
+                                 'RO5urFOvoMRTbQxW3U0hXWuggE4g3ZpsHv48',
+                                 '0HjMeRaZB/FRPGfJPajngcq6Kwg=',
+                                 ')'])]),
+                   OrderedDict([('origin', 'example.'),
+                                ('ttl', '3600'),
+                                ('class', 'in'),
+                                ('type', 'mx'),
+                                ('data', ['1', 'xx.example.'])]),
+                   OrderedDict([('origin', 'example.'),
+                                ('ttl', '3600'),
+                                ('class', 'in'),
+                                ('type', 'rrsig'),
+                                ('data',
+                                ['MX', '5', '1', '3600',
+                                 '20040509183619',
+                                 '(', '20040409183619',
+                                 '38519',
+                                 'example.',
+                                 'HyDHYVT5KHSZ7HtO/vypumPmSZQrcOP3tzWB',
+                                 '2qaKkHVPfau/DgLgS/IKENkYOGL95G4N+NzE',
+                                 'VyNU8dcTOckT+ChPcGeVjguQ7a3Ao9Z/ZkUO',
+                                 '6gmmUW4b89rz1PUxW4jzUxj66PTwoVtUU/iM',
+                                 'W6OISukd1EQt7a0kygkg+PEDxdI=',
+                                 ')'])]),
+                   OrderedDict([('origin', 'example.'),
+                                ('ttl', '3600'),
+                                ('class', 'in'),
+                                ('type', 'nsec'),
+                                ('data', ['a.example.',
+                                          'NS', 'SOA', 'MX', 'RRSIG',
+                                          'NSEC', 'DNSKEY'])]),
+                   OrderedDict([('origin', 'example.'),
+                                ('ttl', '3600'),
+                                ('class', 'in'),
+                                ('type', 'rrsig'),
+                                ('data',
+                                ['NSEC', '5', '1', '3600',
+                                 '20040509183619',
+                                 '(', '20040409183619',
+                                 '38519', 'example.',
+                                 'O0k558jHhyrC97ISHnislm4kLMW48C7U7cBm',
+                                 'FTfhke5iVqNRVTB1STLMpgpbDIC9hcryoO0V',
+                                 'Z9ME5xPzUEhbvGnHd5sfzgFVeGxr5Nyyq4tW',
+                                 'SDBgIBiLQUv1ivy29vhXy7WgR62dPrZ0PWvm',
+                                 'jfFJ5arXf4nPxp/kEowGgBRzY/U=',
+                                 ')'])])]
+
+RFC5155_EXAMPLE = [OrderedDict([('origin', 'example.'),
+                                ('ttl', '3600'),
+                                ('class', 'in'),
+                                ('type', 'SOA'),
+                                ('data',
+                                ['ns1.example.', 'bugs.x.w.example.', '1',
+                                 '3600', '300', '(', '3600000', '3600',
+                                 ')'])]),
+                   OrderedDict([('origin', 'example.'),
+                                ('ttl', '3600'),
+                                ('class', 'in'),
+                                ('type', 'rrsig'),
+                                ('data',
+                                ['SOA', '7', '1', '3600', '20150420235959',
+                                 '20051021000000', '(', '40430', 'example.',
+                                 'Hu25UIyNPmvPIVBrldN+9Mlp9Zql39qaUd8i',
+                                 'q4ZLlYWfUUbbAS41pG+68z81q1xhkYAcEyHd',
+                                 'VI2LmKusbZsT0Q==', ')'])]),
+                   OrderedDict([('origin', 'example.'),
+                                ('ttl', '3600'),
+                                ('class', 'in'),
+                                ('type', 'ns'),
+                                ('data', ['ns1.example.'])]),
+                   OrderedDict([('origin', 'example.'),
+                                ('ttl', '3600'),
+                                ('class', 'in'),
+                                ('type', 'ns'),
+                                ('data', ['ns2.example.'])]),
+                   OrderedDict([('origin', 'example.'),
+                                ('ttl', '3600'),
+                                ('class', 'in'),
+                                ('type', 'rrsig'),
+                                ('data',
+                                ['NS', '7', '1', '3600', '20150420235959',
+                                 '20051021000000', '(', '40430', 'example.',
+                                 'PVOgtMK1HHeSTau+HwDWC8Ts+6C8qtqd4pQJ',
+                                 'qOtdEVgg+MA+ai4fWDEhu3qHJyLcQ9tbD2vv',
+                                 'CnMXjtz6SyObxA==', ')'])]),
+                   OrderedDict([('origin', 'example.'),
+                                ('ttl', '3600'),
+                                ('class', 'in'),
+                                ('type', 'mx'),
+                                ('data', ['1', 'xx.example.'])]),
+                   OrderedDict([('origin', 'example.'),
+                                ('ttl', '3600'),
+                                ('class', 'in'),
+                                ('type', 'rrsig'),
+                                ('data',
+                                ['MX', '7', '1', '3600', '20150420235959',
+                                 '20051021000000', '(', '40430', 'example.',
+                                 'GgQ1A9xs47k42VPvpL/a1BWUz/6XsnHkjotw',
+                                 '9So8MQtZtl2wJBsnOQsaoHrRCrRbyriEl/GZ',
+                                 'n9Mto/Kx+wBo+w==', ')'])]),
+                   OrderedDict([('origin', 'example.'),
+                                ('ttl', '3600'),
+                                ('class', 'in'),
+                                ('type', 'dnskey'),
+                                ('data',
+                                ['256', '3', '7',
+                                 'AwEAAaetidLzsKWUt4swWR8yu0wPHPiUi8LU', '(',
+                                 'sAD0QPWU+wzt89epO6tHzkMBVDkC7qphQO2h',
+                                 'TY4hHn9npWFRw5BYubE=', ')'])]),
+                   OrderedDict([('origin', 'example.'),
+                                ('ttl', '3600'),
+                                ('class', 'in'),
+                                ('type', 'dnskey'),
+                                ('data',
+                                ['257', '3', '7',
+                                 'AwEAAcUlFV1vhmqx6NSOUOq2R/dsR7Xm3upJ', '(',
+                                 'j7IommWSpJABVfW8Q0rOvXdM6kzt+TAu92L9',
+                                 'AbsUdblMFin8CVF3n4s=', ')'])])]
 
 @pytest.fixture()
 def sample_com_tld():
@@ -138,13 +304,18 @@ def sample_com_tld():
 
 
 @pytest.fixture()
-def rfc1035_example():
-    zone = open('tests/data/rfc1035.zone', mode='rt')
+def rfc_examples():
+    rfcs = [1035, 4035, 5155]
+    zones = {}
+
+    for rfc in rfcs:
+        zones[rfc] = open('tests/data/rfc{}.zone'.format(rfc), mode='rt')
 
     def fin():
-        zone.close()
+        for rfc in rfcs:
+            zones[rfc].close()
 
-    return zone
+    return zones
 
 
 class TestParse:
@@ -169,7 +340,11 @@ class TestParse:
         zone = [l for l in zone_iterator(implicit_origin_zone)]
         assert REFERENCE_COM_ZONE[0:2] == zone
 
-    @pytest.mark.usefixtures("rfc1035_example")
-    def test_rfc1035_example(self, rfc1035_example):
-        zone = [l for l in zone_iterator(rfc1035_example)]
-        assert RFC1035_EXAMPLE == zone
+    @pytest.mark.usefixtures("rfc_examples")
+    def test_rfc_examples(self, rfc_examples):
+        zone1035 = [l for l in zone_iterator(rfc_examples[1035])]
+        zone4035 = [l for l in zone_iterator(rfc_examples[4035])]
+        zone5155 = [l for l in zone_iterator(rfc_examples[5155])]
+        assert RFC1035_EXAMPLE == zone1035
+        assert RFC4035_EXAMPLE == zone4035[0:9]
+        assert RFC5155_EXAMPLE == zone5155[0:9]
