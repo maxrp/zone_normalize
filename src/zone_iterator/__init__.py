@@ -95,6 +95,9 @@ def zone_iterator(zone_file: Iterable, def_class="in", ttl="900") -> Iterator:
         elif line_chunks[0].isnumeric() and not line_chunks[0].endswith('.'):
             line_chunks.insert(0, default_values['origin'])
 
+        if not line_chunks[0].endswith('.'):
+            line_chunks[0] += '.' + default_values['origin']
+
         # Normalize case in the first three fields for ease of comparison
         for i in range(1, 3):
             line_chunks[i] = line_chunks[i].lower()
@@ -111,9 +114,6 @@ def zone_iterator(zone_file: Iterable, def_class="in", ttl="900") -> Iterator:
 
         if line_chunks[1].isnumeric() and line_chunks[2] in RECORDTYPES:
             line_chunks.insert(2, default_values['class'])
-
-        if not line_chunks[0].endswith('.'):
-            line_chunks[0] += '.' + default_values['origin']
 
         # try to name the fields
         record = OrderedDict()  # type: OrderedDict[str, str]
