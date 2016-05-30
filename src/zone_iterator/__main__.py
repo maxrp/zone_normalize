@@ -1,3 +1,4 @@
+import argparse
 import gzip
 import sys
 
@@ -11,7 +12,20 @@ else:
     HAS_COLOR = True
 
 
+def maybe_compressed_file(filename):
+    if filename[-2:] == 'gz':
+        our_open = gzip.open
+    else:
+        our_open = open
+
+    return our_open(filename, mode='rt')
+
+
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('inputs', nargs='*', type=maybe_compressed_file)
+    args = parser.parse_args()
+
     if HAS_COLOR:
         colors = [Fore.GREEN, Fore.MAGENTA, Fore.BLUE, Fore.CYAN, Fore.YELLOW]
 
@@ -21,15 +35,11 @@ def main():
                                  zip(colors, unpacked_fmt)
                                  for color in segment])
 
-    zone_file = sys.argv[1]
-    if zone_file[-2:] == 'gz':
-        our_open = gzip.open
-    else:
-        our_open = open
+    for inputfile in args.inputs:
+        with inputfile as zonefh:
+            for record in zone_iterator(zonefh):
+                print(zone_dict_to_str(record, fmt_str=color_format))
 
-    with our_open(zone_file, mode='rt') as zonefh:
-        for record in zone_iterator(zonefh):
-            print(zone_dict_to_str(record, fmt_str=color_format))
 
 if __name__ == "__main__":
     main()
