@@ -26,8 +26,8 @@ def split_comments(line: str) -> Tuple[str, str]:
 
 def set_defaults(line: str, default_values: Dict[str, str]) -> Dict[str, str]:
     var_name, var_value = tuple(line[1:].split())
-    var_name = var_name.lower()
-    default_values[var_name] = var_value.lower()
+    var_name = var_name
+    default_values[var_name] = var_value
     return default_values
 
 
@@ -55,7 +55,7 @@ def zone_iterator(zone_file: Iterable, def_class="in", ttl="900") -> Iterator:
     multiline = False
     multiline_str = ''
     for line in zone_file:
-        line = line.strip()
+        line = line.strip().lower()
 
         if line.startswith('$'):
             default_values = set_defaults(line, default_values)
@@ -83,9 +83,6 @@ def zone_iterator(zone_file: Iterable, def_class="in", ttl="900") -> Iterator:
         if line_chunks[0] == '@':
             line_chunks[0] = default_values['origin']
 
-        # always lowercase the first field
-        line_chunks[0] = line_chunks[0].lower()
-
         # A two field [type, data] entry, needs three fields added
         if line_chunks[0] in RECORDTYPES:
             line_chunks.insert(0, default_values['class'])
@@ -97,10 +94,6 @@ def zone_iterator(zone_file: Iterable, def_class="in", ttl="900") -> Iterator:
 
         if not line_chunks[0].endswith('.'):
             line_chunks[0] += '.' + default_values['origin']
-
-        # Normalize case in the first three fields for ease of comparison
-        for i in range(1, 3):
-            line_chunks[i] = line_chunks[i].lower()
 
         # if the first char of the first field isn't numeric and the second is
         # a class, inject a ttl field
