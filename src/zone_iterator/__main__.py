@@ -31,7 +31,7 @@ def main():
                         help='Dump a list of line structures instead of \
                         printing and coloring each entry.')
     parser.add_argument('zones',
-                        nargs='*',
+                        nargs='+',
                         type=maybe_compressed_file,
                         help='A file or list of zone files, optionally these \
                         files may be gzipped.')
