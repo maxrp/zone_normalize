@@ -19,6 +19,9 @@
 from collections import OrderedDict
 from typing import Dict, Iterator, Iterable, Tuple
 
+# semver
+__version__ = "0.9.0-alpha"
+
 # should be exhaustive
 RECORDCLASSES = ['ch', 'in', 'hs', 'cs']
 # non-exhaustive

@@ -29,7 +29,7 @@ except ImportError:
 else:
     HAS_COLOR = True
 
-from . import zone_normalize, zone_dict_to_str, ZONE_FMT_STR
+from . import __version__, zone_normalize, zone_dict_to_str, ZONE_FMT_STR
 
 
 def maybe_compressed_file(filename):
@@ -48,12 +48,22 @@ def main():
                         action='store_true',
                         help='Dump a list of line structures instead of \
                         printing and coloring each entry.')
+    parser.add_argument('-v',
+                        '--version',
+                        action='store_true',
+                        help='Display version information.')
     parser.add_argument('zones',
-                        nargs='+',
+                        nargs='*',
                         type=maybe_compressed_file,
                         help='A file or list of zone files, optionally these \
                         files may be gzipped.')
     args = parser.parse_args()
+
+    if args.version:
+        print("zone-highlight (zone_normalize) {}".format(__version__))
+        print("Copyright (C) 2016 Max R.D. Parmer")
+        print("License AGPLv3+: GNU Affero GPL version 3 or later.")
+        print("            <http://www.gnu.org/licenses/agpl.html>")
 
     if HAS_COLOR:
         colors = [Fore.GREEN, Fore.MAGENTA, Fore.BLUE, Fore.CYAN, Fore.YELLOW]
