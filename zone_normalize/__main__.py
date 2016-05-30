@@ -48,6 +48,10 @@ def main():
                         action='store_true',
                         help='Dump a list of line structures instead of \
                         printing and coloring each entry.')
+    parser.add_argument('-nc',
+                        '--no-color',
+                        action='store_true',
+                        help='Disable color.')
     parser.add_argument('-v',
                         '--version',
                         action='store_true',
@@ -65,14 +69,16 @@ def main():
         print("License AGPLv3+: GNU Affero GPL version 3 or later.")
         print("            <http://www.gnu.org/licenses/agpl.html>")
 
-    if HAS_COLOR:
+    if HAS_COLOR and not args.no_color:
         colors = [Fore.GREEN, Fore.MAGENTA, Fore.BLUE, Fore.CYAN, Fore.YELLOW]
 
         colorama_init(autoreset=True)
         unpacked_fmt = ZONE_FMT_STR.split()
-        color_format = " ".join([color for segment in
+        final_format = " ".join([color for segment in
                                  zip(colors, unpacked_fmt)
                                  for color in segment])
+    else:
+        final_format = ZONE_FMT_STR
 
     for zone in args.zones:
         with zone as zonefh:
@@ -81,7 +87,7 @@ def main():
                 pp.pprint([l for l in zone_normalize(zonefh)])
             else:
                 for record in zone_normalize(zonefh):
-                    print(zone_dict_to_str(record, fmt_str=color_format))
+                    print(zone_dict_to_str(record, fmt_str=final_format))
 
 
 if __name__ == "__main__":
