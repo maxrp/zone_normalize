@@ -55,6 +55,8 @@ def zone_iterator(zone_file: Iterable, def_class="in", ttl="900") -> Iterator:
     multiline = False
     multiline_str = ''
     for line in zone_file:
+        line = line.strip()
+
         if line.startswith('$'):
             default_values = set_defaults(line, default_values)
             continue
@@ -62,6 +64,9 @@ def zone_iterator(zone_file: Iterable, def_class="in", ttl="900") -> Iterator:
         comments, multiline, end_of_multiline = set_flags(line, multiline)
         if comments:
             line, _ = split_comments(line)
+
+        if not line:
+            continue
 
         if multiline:
             multiline_str += "{} ".format(line)
@@ -72,12 +77,7 @@ def zone_iterator(zone_file: Iterable, def_class="in", ttl="900") -> Iterator:
                 multiline_str = ''
                 multiline = False
 
-        line_chunks = line.strip().split()
-        line_len = len(line_chunks)
-
-        # We need this line to at least be two fields, type and data
-        if line_len < 2:
-            continue
+        line_chunks = line.split()
 
         # replace @ with origin
         if line_chunks[0] == '@':
