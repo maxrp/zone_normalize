@@ -50,7 +50,7 @@ def main():
         with zone as zonefh:
             if args.dump:
                 pp = PrettyPrinter(indent=4, compact=True, width=72)
-                pp.pprint([l for l in zone_iterator(zonefh)][0:9])
+                pp.pprint([l for l in zone_iterator(zonefh)])
             else:
                 for record in zone_iterator(zonefh):
                     print(zone_dict_to_str(record, fmt_str=color_format))
