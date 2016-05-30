@@ -1,4 +1,4 @@
-# zone_iterator 
+# zone_normalize
 
 This package provides an iterator which on each iteration yields a normalized
 zone entry.

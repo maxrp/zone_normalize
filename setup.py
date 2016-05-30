@@ -13,7 +13,7 @@ install_requires = []
 if sys.version_info < (3, 5, 0):
     install_requires.append('typing>=3.5')
 
-setup(name='zone_iterator',
+setup(name='zone_normalize',
       version=version,
       description="",
       long_description=README + '\n\n' + NEWS,
@@ -43,6 +43,6 @@ setup(name='zone_iterator',
       extras_require={'colors': 'colorama'},
       entry_points={
         'console_scripts':  [
-            'zone_normalize=zone_iterator.__main__:main [colors]'
+            'zone-highlight=zone_normalize.__main__:main [colors]'
         ]
       })

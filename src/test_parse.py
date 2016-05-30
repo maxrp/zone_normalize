@@ -1,7 +1,7 @@
 import pytest
 
 from collections import OrderedDict
-from zone_iterator import split_comments, zone_iterator, zone_dict_to_str
+from zone_normalize import split_comments, zone_normalize, zone_dict_to_str
 
 REFERENCE_COM_ZONE = [OrderedDict([('origin', 'com.'),
                                    ('ttl', '900'),
@@ -334,20 +334,20 @@ class TestParse:
 
     @pytest.mark.usefixtures("sample_com_tld")
     def test_com_tld_parse(self, sample_com_tld):
-        zone = [l for l in zone_iterator(sample_com_tld)]
+        zone = [l for l in zone_normalize(sample_com_tld)]
         assert REFERENCE_COM_ZONE == zone
 
     def test_implicit_origin(self):
         implicit_origin_zone = [zone_dict_to_str(REFERENCE_COM_ZONE[0]),
                                 zone_dict_to_str(REFERENCE_COM_ZONE[1])]
-        zone = [l for l in zone_iterator(implicit_origin_zone)]
+        zone = [l for l in zone_normalize(implicit_origin_zone)]
         assert REFERENCE_COM_ZONE[0:2] == zone
 
     @pytest.mark.usefixtures("rfc_examples")
     def test_rfc_examples(self, rfc_examples):
-        zone1035 = [l for l in zone_iterator(rfc_examples[1035])]
-        zone4035 = [l for l in zone_iterator(rfc_examples[4035])]
-        zone5155 = [l for l in zone_iterator(rfc_examples[5155])]
+        zone1035 = [l for l in zone_normalize(rfc_examples[1035])]
+        zone4035 = [l for l in zone_normalize(rfc_examples[4035])]
+        zone5155 = [l for l in zone_normalize(rfc_examples[5155])]
         assert RFC1035_EXAMPLE == zone1035
         assert RFC4035_EXAMPLE == zone4035[0:9]
         assert RFC5155_EXAMPLE == zone5155[0:9]

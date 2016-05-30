@@ -49,7 +49,7 @@ def zone_dict_to_str(record: OrderedDict, fmt_str: str=ZONE_FMT_STR) -> str:
     return fmt_str.format(record, " ".join(record['data']))
 
 
-def zone_iterator(zone_file: Iterable, def_class="in", ttl="900") -> Iterator:
+def zone_normalize(zone_file: Iterable, def_class="in", ttl="900") -> Iterator:
     default_values = {'class': def_class,
                       'ttl': ttl}
     multiline = False

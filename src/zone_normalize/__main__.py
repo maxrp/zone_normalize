@@ -11,7 +11,7 @@ except ImportError:
 else:
     HAS_COLOR = True
 
-from . import zone_iterator, zone_dict_to_str, ZONE_FMT_STR
+from . import zone_normalize, zone_dict_to_str, ZONE_FMT_STR
 
 
 def maybe_compressed_file(filename):
@@ -50,9 +50,9 @@ def main():
         with zone as zonefh:
             if args.dump:
                 pp = PrettyPrinter(indent=4, compact=True, width=72)
-                pp.pprint([l for l in zone_iterator(zonefh)])
+                pp.pprint([l for l in zone_normalize(zonefh)])
             else:
-                for record in zone_iterator(zonefh):
+                for record in zone_normalize(zonefh):
                     print(zone_dict_to_str(record, fmt_str=color_format))
 
 
