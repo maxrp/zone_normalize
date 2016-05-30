@@ -298,7 +298,7 @@ RFC5155_EXAMPLE = [OrderedDict([('origin', 'example.'),
 
 @pytest.fixture()
 def sample_com_tld():
-    com_zone = open('tests/data/com.zone', mode='rt')
+    com_zone = open('test_data/com.zone', mode='rt')
 
     def fin():
         com_zone.close()
@@ -312,7 +312,7 @@ def rfc_examples():
     zones = {}
 
     for rfc in rfcs:
-        zones[rfc] = open('tests/data/rfc{}.zone'.format(rfc), mode='rt')
+        zones[rfc] = open('test_data/rfc{}.zone'.format(rfc), mode='rt')
 
     def fin():
         for rfc in rfcs:
