@@ -1,15 +1,16 @@
 import argparse
 import gzip
-import sys
 
-from . import zone_iterator, zone_dict_to_str, ZONE_FMT_STR
 
 try:
+    # colorama is an optional dep
     from colorama import Fore, init as colorama_init
 except ImportError:
     HAS_COLOR = False
 else:
     HAS_COLOR = True
+
+from . import zone_iterator, zone_dict_to_str, ZONE_FMT_STR
 
 
 def maybe_compressed_file(filename):
