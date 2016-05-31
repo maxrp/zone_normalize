@@ -89,6 +89,9 @@ def main():
                 for record in zone_normalize(zonefh):
                     print(zone_dict_to_str(record, fmt_str=final_format))
 
+    if not args.zones and not args.version:
+        parser.print_help()
+
 
 if __name__ == "__main__":
     main()
