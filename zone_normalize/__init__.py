@@ -40,6 +40,41 @@ RECORDTYPES = ['a',
 ZONE_FMT_STR = "{0[origin]} {0[ttl]} {0[class]} {0[type]} {1}"
 
 
+def normalize_data(line: str, default_values: Dict[str, str]) -> [str]:
+    line_chunks = line.split()
+
+    # replace @ with origin
+    if line_chunks[0] == '@':
+        line_chunks[0] = default_values['origin']
+
+    # A two field [type, data] entry, needs three fields added
+    if line_chunks[0] in RECORDTYPES:
+        line_chunks.insert(0, default_values['class'])
+        line_chunks.insert(0, default_values['ttl'])
+        line_chunks.insert(0, default_values['origin'])
+    # probably a three field record begining with TTL
+    elif line_chunks[0].isnumeric() and not line_chunks[0].endswith('.'):
+        line_chunks.insert(0, default_values['origin'])
+
+    if not line_chunks[0].endswith('.'):
+        line_chunks[0] += '.' + default_values['origin']
+
+    # if the first char of the first field isn't numeric and the second is
+    # a class, inject a ttl field
+    if line_chunks[1] in RECORDCLASSES \
+            and not line_chunks[0][0].isnumeric():
+        line_chunks.insert(1, default_values['ttl'])
+    # if the second field is a known record type inject a ttl and class
+    elif line_chunks[1] in RECORDTYPES:
+        line_chunks.insert(1, default_values['class'])
+        line_chunks.insert(1, default_values['ttl'])
+
+    if line_chunks[1].isnumeric() and line_chunks[2] in RECORDTYPES:
+        line_chunks.insert(2, default_values['class'])
+
+    return line_chunks
+
+
 def split_comments(line: str) -> Tuple[str, str]:
     semicolon = line.index(';')
     return (line[0:semicolon].strip(), line[semicolon+1:].strip())
@@ -77,6 +112,7 @@ def zone_normalize(zone_file: Iterable, def_class="in", ttl="900") -> Iterator:
     multiline_str = ''
     for line in zone_file:
         line = line.strip().lower()
+        record = OrderedDict()  # type: OrderedDict[str, str]
 
         if line.startswith('$'):
             default_values = set_defaults(line, default_values)
@@ -98,47 +134,16 @@ def zone_normalize(zone_file: Iterable, def_class="in", ttl="900") -> Iterator:
                 multiline_str = ''
                 multiline = False
 
-        line_chunks = line.split()
+        if line:
+            line_chunks = normalize_data(line, default_values)
+            # try to name the fields
+            record['origin'], record['ttl'], record['class'], record['type'] \
+                = tuple(line_chunks[:4])
+            # the rest of the data goes here and needs a type specific parser
+            record['data'] = line_chunks[4:]
 
-        # replace @ with origin
-        if line_chunks[0] == '@':
-            line_chunks[0] = default_values['origin']
-
-        # A two field [type, data] entry, needs three fields added
-        if line_chunks[0] in RECORDTYPES:
-            line_chunks.insert(0, default_values['class'])
-            line_chunks.insert(0, default_values['ttl'])
-            line_chunks.insert(0, default_values['origin'])
-        # probably a three field record begining with TTL
-        elif line_chunks[0].isnumeric() and not line_chunks[0].endswith('.'):
-            line_chunks.insert(0, default_values['origin'])
-
-        if not line_chunks[0].endswith('.'):
-            line_chunks[0] += '.' + default_values['origin']
-
-        # if the first char of the first field isn't numeric and the second is
-        # a class, inject a ttl field
-        if line_chunks[1] in RECORDCLASSES \
-                and not line_chunks[0][0].isnumeric():
-            line_chunks.insert(1, default_values['ttl'])
-        # if the second field is a known record type inject a ttl and class
-        elif line_chunks[1] in RECORDTYPES:
-            line_chunks.insert(1, default_values['class'])
-            line_chunks.insert(1, default_values['ttl'])
-
-        if line_chunks[1].isnumeric() and line_chunks[2] in RECORDTYPES:
-            line_chunks.insert(2, default_values['class'])
-
-        # try to name the fields
-        record = OrderedDict()  # type: OrderedDict[str, str]
-        record['origin'], record['ttl'], record['class'], record['type'] = \
-            tuple(line_chunks[:4])
-
-        # the rest of the data goes here and needs a type specific parser
-        record['data'] = line_chunks[4:]
-
-        if 'origin' not in default_values:
-            default_values['origin'] = record['origin']
-        default_values['ttl'] = record['ttl']
+            if 'origin' not in default_values:
+                default_values['origin'] = record['origin']
+            default_values['ttl'] = record['ttl']
 
         yield record
