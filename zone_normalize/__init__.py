@@ -122,20 +122,18 @@ def zone_normalize(zone_file: Iterable, def_class="in", ttl="900") -> Iterator:
         if comments:
             line, _ = split_comments(line)
 
-        if not line:
-            continue
-
-        if multiline:
-            multiline_str += "{} ".format(line)
-            if not end_of_multiline:
-                continue
-            else:
-                line = multiline_str
-                multiline_str = ''
-                multiline = False
-
         if line:
+            if multiline:
+                multiline_str += "{} ".format(line)
+                if not end_of_multiline:
+                    continue
+                else:
+                    line = multiline_str
+                    multiline_str = ''
+                    multiline = False
+
             line_chunks = normalize_data(line, default_values)
+
             # try to name the fields
             record['origin'], record['ttl'], record['class'], record['type'] \
                 = tuple(line_chunks[:4])
@@ -145,5 +143,7 @@ def zone_normalize(zone_file: Iterable, def_class="in", ttl="900") -> Iterator:
             if 'origin' not in default_values:
                 default_values['origin'] = record['origin']
             default_values['ttl'] = record['ttl']
+        else:
+            continue
 
         yield record
