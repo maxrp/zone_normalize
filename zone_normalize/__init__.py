@@ -143,7 +143,5 @@ def zone_normalize(zone_file: Iterable, def_class="in", ttl="900") -> Iterator:
             if 'origin' not in default_values:
                 default_values['origin'] = record['origin']
             default_values['ttl'] = record['ttl']
-        else:
-            continue
 
-        yield record
+            yield record
