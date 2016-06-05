@@ -20,7 +20,7 @@ from collections import OrderedDict
 from typing import Dict, Iterator, Iterable, Tuple
 
 # semver
-__version__ = "0.9.0-alpha"
+__version__ = "0.9.0"
 
 # should be exhaustive
 RECORDCLASSES = ['ch', 'in', 'hs', 'cs']
