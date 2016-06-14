@@ -42,6 +42,11 @@ def maybe_compressed_file(filename):
 
 
 def main():
+    version = '\n'.join(["%(prog)s (zone_normalize) {}",
+                         "Copyright (C) 2016 Max R.D. Parmer",
+                         "License AGPLv3+: GNU Affero GPL version 3 or later.",
+                         "http://www.gnu.org/licenses/agpl.html"])
+
     parser = argparse.ArgumentParser()
     parser.add_argument('-d',
                         '--dump',
@@ -54,20 +59,14 @@ def main():
                         help='Disable color.')
     parser.add_argument('-v',
                         '--version',
-                        action='store_true',
-                        help='Display version information.')
+                        action='version',
+                        version=version.format(__version__))
     parser.add_argument('zones',
-                        nargs='*',
+                        nargs='+',
                         type=maybe_compressed_file,
                         help='A file or list of zone files, optionally these \
                         files may be gzipped.')
     args = parser.parse_args()
-
-    if args.version:
-        print("zone-highlight (zone_normalize) {}".format(__version__))
-        print("Copyright (C) 2016 Max R.D. Parmer")
-        print("License AGPLv3+: GNU Affero GPL version 3 or later.")
-        print("            <http://www.gnu.org/licenses/agpl.html>")
 
     if HAS_COLOR and not args.no_color:
         colors = [Fore.GREEN, Fore.MAGENTA, Fore.BLUE, Fore.CYAN, Fore.YELLOW]
@@ -88,9 +87,6 @@ def main():
             else:
                 for record in zone_normalize(zonefh):
                     print(zone_dict_to_str(record, fmt_str=final_format))
-
-    if not args.zones and not args.version:
-        parser.print_help()
 
 
 if __name__ == "__main__":
