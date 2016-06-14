@@ -28,7 +28,6 @@ RECORDCLASSES = ['ch', 'in', 'hs', 'cs']
 RECORDTYPES = ['a',
                'aaaa',
                'dnskey',
-               'rrsig',
                'mx',
                'ns',
                'nsec',
