@@ -24,18 +24,46 @@ __version__ = "0.9.1.dev"
 
 # should be exhaustive
 RECORDCLASSES = ['ch', 'in', 'hs', 'cs']
-# non-exhaustive
+# non-exhaustive, but fairly close
 RECORDTYPES = ['a',
                'aaaa',
+               'afsdb',
+               'apl',
+               'caa',
+               'cdnskey',
+               'cds',
+               'cert',
+               'cname',
+               'dhcid',
+               'dlv',
+               'dname',
                'dnskey',
                'ds',
+               'hinfo',
+               'hip',
+               'ipseckey',
+               'key',
+               'kx',
+               'loc',
                'mx',
+               'naptr',
                'ns',
                'nsec',
                'nsec3',
                'nsec3param',
+               'ptr',
+               'rp',
                'rrsig',
-               'txt']
+               'sig',
+               'soa',
+               'srv',
+               'sshfp',
+               'ta',
+               'tkey',
+               'tlsa',
+               'tsig',
+               'txt',
+               'uri']
 # Basic format for a zone and data
 ZONE_FMT_STR = "{0[origin]} {0[ttl]} {0[class]} {0[type]} {1}"
 
