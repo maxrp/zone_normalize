@@ -1,7 +1,8 @@
 # News
 
-## 0.1
+## 0.9.0
 
-*Release date: UNRELEASED*
+*Released 10th June 2016*
 
-* A very basic and tolerant lazy Zone file parser
+* A very basic and tolerant lazy DNS zone file parser/normalizer
+* A `zone-highlight` utility
