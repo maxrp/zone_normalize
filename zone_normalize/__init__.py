@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from collections import OrderedDict
-from typing import Dict, Iterator, Iterable, Tuple
+from typing import Any, Dict, Iterator, Iterable, List, Tuple  # noqa
 
 # semver
 __version__ = "0.9.1.dev"
@@ -39,7 +39,7 @@ RECORDTYPES = ['a',
 ZONE_FMT_STR = "{0[origin]} {0[ttl]} {0[class]} {0[type]} {1}"
 
 
-def normalize_data(line: str, default_values: Dict[str, str]) -> [str]:
+def normalize_data(line: str, default_values: Dict[str, str]) -> List[str]:
     line_chunks = line.split()
 
     # replace @ with origin
@@ -111,7 +111,7 @@ def zone_normalize(zone_file: Iterable, def_class="in", ttl="900") -> Iterator:
     multiline_str = ''
     for line in zone_file:
         line = line.strip().lower()
-        record = OrderedDict()  # type: OrderedDict[str, str]
+        record = OrderedDict()  # type: OrderedDict[str, Any]
 
         if line.startswith('$'):
             default_values = set_defaults(line, default_values)

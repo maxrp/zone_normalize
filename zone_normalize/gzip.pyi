@@ -1,6 +1,5 @@
 # Stubs for gzip
 from io import BufferedReader
-from typing import Any
 
 # TODO: finish annotation
 def open(filename: str,
