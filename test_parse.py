@@ -343,6 +343,16 @@ class TestParse:
         zone = [l for l in zone_normalize(implicit_origin_zone)]
         assert REFERENCE_COM_ZONE[0:2] == zone
 
+    def test_implicit_class(self):
+        implicit_class_record = ['example. 3600 hinfo "klh-10" "tops-20"']
+        expected = [OrderedDict([('origin', 'example.'),
+                                 ('ttl',    '3600'),
+                                 ('class',   'in'),
+                                 ('type',    'hinfo'),
+                                 ('data',   ['"klh-10"', '"tops-20"'])])]
+        assert expected == [l for l in
+                            zone_normalize(implicit_class_record)]
+
     @pytest.mark.usefixtures("rfc_examples")
     def test_rfc_examples(self, rfc_examples):
         zone1035 = [l for l in zone_normalize(rfc_examples[1035])]
