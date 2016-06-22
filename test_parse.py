@@ -353,6 +353,17 @@ class TestParse:
         assert expected == [l for l in
                             zone_normalize(implicit_class_record)]
 
+    def test_implicit_ttl_following_integer_name(self):
+        integer_name_record = ['$origin example.',
+                               '$ttl 2600',
+                               '1234567 NS example.com']
+        expected = [OrderedDict([('origin', '1234567.example.'),
+                                 ('ttl',    '2600'),
+                                 ('class',  'in'),
+                                 ('type',   'ns'),
+                                 ('data',   ['example.com'])])]
+        assert expected == [l for l in zone_normalize(integer_name_record)]
+
     @pytest.mark.usefixtures("rfc_examples")
     def test_rfc_examples(self, rfc_examples):
         zone1035 = [l for l in zone_normalize(rfc_examples[1035])]
